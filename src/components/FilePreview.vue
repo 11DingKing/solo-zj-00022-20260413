@@ -1,6 +1,6 @@
 <template>
   <b-modal
-    v-model="isVisible"
+    :visible="previewVisible"
     size="xl"
     centered
     hide-footer
@@ -91,16 +91,6 @@ export default {
   },
   computed: {
     ...mapState(['previewData', 'previewVisible']),
-    isVisible: {
-      get() {
-        return this.previewVisible
-      },
-      set(value) {
-        if (!value) {
-          this.handleClose()
-        }
-      }
-    },
     imageStyle() {
       return {
         transform: `scale(${this.scale})`,
