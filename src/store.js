@@ -7,7 +7,9 @@ Vue.use(Vuex, axios)
 
 export default new Vuex.Store ({
   state: {
-    rowData: []
+    rowData: [],
+    previewData: null,
+    previewVisible: false
   },
 
   actions: {
@@ -71,6 +73,31 @@ export default new Vuex.Store ({
         document.body.appendChild(link)
         link.click()
       })
+    },
+
+    getPreviewUrl ({ commit, dispatch }, fileId) {
+      return axios.get(`api/files/${fileId}/preview-url/`)
+        .then(response => {
+          commit('SET_PREVIEW_DATA', response.data)
+          commit('SET_PREVIEW_VISIBLE', true)
+          return response.data
+        })
+        .catch(error => {
+          console.log(error)
+          if (error.response && error.response.status === 403) {
+            commit('SET_PREVIEW_DATA', {
+              file_type: 'forbidden',
+              error: error.response.data.message || 'This file type cannot be previewed'
+            })
+            commit('SET_PREVIEW_VISIBLE', true)
+          }
+          throw error
+        })
+    },
+
+    closePreview ({ commit }) {
+      commit('SET_PREVIEW_VISIBLE', false)
+      commit('SET_PREVIEW_DATA', null)
     }
   },
 
@@ -80,6 +107,12 @@ export default new Vuex.Store ({
     },
     POST_FILE (state, newFile) {
       state.rowData.push(newFile)
+    },
+    SET_PREVIEW_DATA (state, data) {
+      state.previewData = data
+    },
+    SET_PREVIEW_VISIBLE (state, visible) {
+      state.previewVisible = visible
     }
   }
 })

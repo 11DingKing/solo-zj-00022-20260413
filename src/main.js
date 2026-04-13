@@ -1,18 +1,16 @@
-import Vue from 'vue'
-import App from './App.vue'
-import axios from 'axios'
-import BootstrapVue from 'bootstrap-vue'
-import store from './store'
+import Vue from "vue";
+import App from "./App.vue";
+import axios from "axios";
+import BootstrapVue from "bootstrap-vue";
+import store from "./store";
 
-Vue.use(BootstrapVue)
+Vue.use(BootstrapVue);
 
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
 
 // font awesome settings
-import {
-  library
-} from '@fortawesome/fontawesome-svg-core'
+import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faFilePdf,
   faFileImage,
@@ -25,11 +23,14 @@ import {
   faFile,
   faTrashAlt,
   faUpload,
-  faTasks
-} from '@fortawesome/free-solid-svg-icons'
-import {
-  FontAwesomeIcon
-} from '@fortawesome/vue-fontawesome'
+  faTasks,
+  faSearchPlus,
+  faSearchMinus,
+  faSync,
+  faExclamationTriangle,
+  faEye,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 library.add(
   faFilePdf,
@@ -43,22 +44,27 @@ library.add(
   faFile,
   faTrashAlt,
   faUpload,
-  faTasks
-)
+  faTasks,
+  faSearchPlus,
+  faSearchMinus,
+  faSync,
+  faExclamationTriangle,
+  faEye,
+);
 
-Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.component("font-awesome-icon", FontAwesomeIcon);
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 // axios settings
-axios.defaults.baseURL = 'http://localhost:8000'
-axios.defaults.xsrfHeaderName = "X-CSRFToken"
-axios.defaults.xsrfCookieName = 'csrftoken'
+axios.defaults.baseURL = "http://localhost:8000";
+axios.defaults.xsrfHeaderName = "X-CSRFToken";
+axios.defaults.xsrfCookieName = "csrftoken";
 
 new Vue({
-  el: '#app',
+  el: "#app",
   store,
   components: {
-    'django': App
-  }
-})
+    django: App,
+  },
+});
