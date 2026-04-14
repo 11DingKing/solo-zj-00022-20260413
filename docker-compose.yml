@@ -1,0 +1,12 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - media_data:/app/media
+    environment:
+      - DJANGO_SETTINGS_MODULE=djvuetut.settings
+
+volumes:
+  media_data:

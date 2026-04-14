@@ -291,16 +291,8 @@ export default {
 
     onRowClicked(event) {
       let file_id = event.node.data.file_id;
-      let filename = event.node.data.name;
-      let filetype = event.node.data.filetype;
-
-      // 如果是可预览的文件类型，先尝试预览
-      if (isPreviewable(filetype)) {
-        this.previewFile(file_id);
-      } else {
-        // 否则下载文件
-        this.$store.dispatch("downloadFile", filename);
-      }
+      // 所有文件类型都先尝试预览，后端会根据文件类型返回相应的结果
+      this.previewFile(file_id);
     },
 
     previewFile(fileId) {

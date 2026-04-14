@@ -107,10 +107,8 @@ class DataViewSet(viewsets.ModelViewSet):
         timestamp = int(time.time())
         signature = generate_preview_signature(pk, timestamp, settings.SECRET_KEY)
         
-        # 构建预览 URL
-        preview_url = request.build_absolute_uri(
-            f'/api/files/{pk}/preview/?t={timestamp}&s={signature}'
-        )
+        # 构建预览 URL（使用相对路径）
+        preview_url = f'/api/files/{pk}/preview/?t={timestamp}&s={signature}'
         
         file_type = get_file_type(extension)
         

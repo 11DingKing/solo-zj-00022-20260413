@@ -90,6 +90,19 @@ export default new Vuex.Store ({
               error: error.response.data.message || 'This file type cannot be previewed'
             })
             commit('SET_PREVIEW_VISIBLE', true)
+          } else if (error.response && error.response.status === 404) {
+            commit('SET_PREVIEW_DATA', {
+              file_type: 'other',
+              error: 'File not found'
+            })
+            commit('SET_PREVIEW_VISIBLE', true)
+          } else {
+            // 其他错误也显示不支持预览的提示
+            commit('SET_PREVIEW_DATA', {
+              file_type: 'other',
+              error: 'Unable to preview this file'
+            })
+            commit('SET_PREVIEW_VISIBLE', true)
           }
           throw error
         })
