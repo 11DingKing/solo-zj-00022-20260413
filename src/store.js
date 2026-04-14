@@ -38,10 +38,11 @@ export default new Vuex.Store ({
            }
         })
           .then(res => {
-            commit('POST_FILE', newFile)
-          })
-          .then(res => {
+            // 上传成功后，重新加载文件列表
             dispatch('loadFiles')
+          })
+          .catch(error => {
+            console.log(error);
           })
       } catch (error) {
         console.log(error);

@@ -3,6 +3,15 @@ import moment from 'moment'
 
 function sizeFormatter(params) {
   let size = params.value
+  // 处理空值情况
+  if (size === undefined || size === null || size === '') {
+    return '0 B'
+  }
+  // 确保 size 是数字
+  size = Number(size)
+  if (isNaN(size)) {
+    return '0 B'
+  }
   // #2**10 = 1024
   const power = 2 ** 10
   let n = 0
